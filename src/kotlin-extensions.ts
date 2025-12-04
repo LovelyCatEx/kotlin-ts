@@ -65,7 +65,7 @@ export function registerKotlinExtensions(): void {
         };
     }
 
-    console.log("[KotlinTS] Kotlin extensions loaded successfully.");
+    // console.log("[KotlinTS] Kotlin extensions loaded successfully.");
 }
 
 export function withScope<T, R>(obj: T, block: (it: T) => R): R {

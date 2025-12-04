@@ -1,7 +1,7 @@
 // src/tests/kotlin-extensions.tests.ts
 import { beforeEach } from "mocha";
 import {registerKotlinExtensions, withScope} from "../kotlin-extensions";
-import {assert, expect} from "chai";
+import {expect} from "chai";
 
 
 beforeEach(() => {
@@ -34,7 +34,7 @@ describe('Kotlin Extensions', () => {
     it('should apply', () => {
         const arr: number[] = []
         arr.applyTo(it => {
-            arr.push(233);
+            it.push(233);
         })
         expect(arr[0]).to.eq(233);
     });
@@ -43,19 +43,32 @@ describe('Kotlin Extensions', () => {
         const arr: number[] = [1, 2, 3]
         const r = arr.takeIf(it => it.length == 3)
         expect(r!![0]).to.eq(1)
+    });
 
-        const arr2: number[] = [1, 2, 3, 4]
-        const r2 = arr2.takeIf(it => it.length == 2)
-        expect(r2).to.eq(null)
+    it('should takeIf returns null', () => {
+        const arr: number[] = [1, 2, 3]
+        const r = arr.takeIf(it => it.length == arr.length + 1)
+        expect(r).to.eq(null)
     });
 
     it('should takeUnless', () => {
-        const arr: number[] = [1, 2, 3]
-        const r = arr.takeUnless(it => it.length == 3)
-        expect(r).to.eq(null)
-
         const arr2: number[] = [1, 2, 3, 4]
         const r2 = arr2.takeUnless(it => it.length == 2)
         expect(r2!![2]).to.eq(3)
+    });
+
+    it('should takeUnless returns null', () => {
+        const arr: number[] = [1, 2, 3]
+        const r = arr.takeUnless(it => it.length == 3)
+        expect(r).to.eq(null)
+    });
+
+    it('should withScope', () => {
+        const result = withScope("test", it => `#${it}#`)
+        expect(result).to.eq("#test#")
+    });
+
+    it('should withScope returns undefined(void)', () => {
+        expect(withScope("test", () => { return undefined })).to.eq(undefined)
     });
 });
