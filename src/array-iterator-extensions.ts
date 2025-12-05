@@ -8,6 +8,10 @@ declare global {
 
     distinctBy<S>(selector: (it: T) => S): Array<T>
 
+    all(predicate: (it: T) => boolean): boolean
+
+    any(predicate: (it: T) => boolean): boolean
+
     forEachIndexed(block: (index: number, it: T) => void): void
 
     filterIndexed(predicate: (index: number, it: T) => boolean): Array<T>
@@ -68,6 +72,28 @@ export function registerArrayIteratorFunctions() {
       for (let i = 0; i < this.length; i++) {
         block(i, this[i])
       }
+    }
+  }
+
+  if (Array.prototype.all === undefined) {
+    Array.prototype.all = function<T>(predicate: (it: T) => boolean): boolean {
+      for (let i = 0; i < this.length; i++) {
+        if (!predicate(this[i])) {
+          return false
+        }
+      }
+      return true
+    }
+  }
+
+  if (Array.prototype.any === undefined) {
+    Array.prototype.any = function<T>(predicate: (it: T) => boolean): boolean {
+      for (let i = 0; i < this.length; i++) {
+        if (predicate(this[i])) {
+          return true
+        }
+      }
+      return false
     }
   }
 
