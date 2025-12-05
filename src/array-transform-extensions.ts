@@ -1,3 +1,11 @@
+declare global {
+  interface Array<T> {
+    mapIndexed<R>(transform: (index: number, it: T) => R): Array<R>
+
+    mapNotNull<R>(transform: (it: T) => R | undefined | null): Array<R>
+  }
+}
+
 export function registerArrayTransformFunctions() {
   if (Array.prototype.mapIndexed === undefined) {
     Array.prototype.mapIndexed = function<T, R>(this: T[], transform: (index: number, it: T) => R): R[] {

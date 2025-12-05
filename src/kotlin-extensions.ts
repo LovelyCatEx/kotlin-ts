@@ -1,3 +1,19 @@
+declare global {
+  interface Object {
+    let<T, R>(this: T, block: (it: T) => R): R;
+
+    run<T, R>(this: T, block: (it: T) => R): R;
+
+    also<T>(this: T, block: (it: T) => void): T;
+
+    applyTo<T>(this: T, block: (it: T) => void): T;
+
+    takeIf<T>(this: T, predicate: (it: T) => boolean): T | null;
+
+    takeUnless<T>(this: T, predicate: (it: T) => boolean): T | null;
+  }
+}
+
 export function registerKotlinExtensions(): void {
   if (Object.prototype.let === undefined) {
     Object.prototype.let = function <T, R>(this: T, block: (it: T) => R): R {

@@ -2,6 +2,66 @@ import {UnsupportedOperationException} from "./exception/UnsupportedOperationExc
 import {NullPointerException} from "./exception/NullPointerException";
 import {IllegalArgumentException} from "./exception/IllegalArgumentException";
 
+declare global {
+  interface Array<T> {
+    distinct(): Array<T>
+
+    distinctBy<S>(selector: (it: T) => S): Array<T>
+
+    forEachIndexed(block: (index: number, it: T) => void): void
+
+    filterIndexed(predicate: (index: number, it: T) => boolean): Array<T>
+
+    filterNot(predicate: (it: T) => boolean): Array<T>
+
+    filterNotIndexed(predicate: (index: number, it: T) => boolean): Array<T>
+
+    filterNotNull(): Array<NonNullable<T>>
+
+    filterNotNull(predicate: (index: number, it: T) => boolean): Array<NonNullable<T>>
+
+    take(n: number): Array<T>
+
+    takeLast(n: number): Array<T>
+
+    takeWhile(predicate: (it: T) => boolean): Array<T>
+
+    takeLastWhile(predicate: (it: T) => boolean): Array<T>
+
+    drop(n: number): Array<T>
+
+    dropLast(n: number): Array<T>
+
+    dropWhile(predicate: (it: T) => boolean): Array<T>
+
+    dropLastWhile(predicate: (it: T) => boolean): Array<T>
+
+    first(): T
+
+    first(predicate: (it: T) => boolean): T
+
+    firstOrNull(): T | null
+
+    firstOrNull(predicate: (it: T) => boolean): T | null
+
+    last(): T
+
+    last(predicate: (it: T) => boolean): T
+
+    lastOrNull(): T | null
+
+    lastOrNull(predicate: (it: T) => boolean): T | null
+
+    single(): T
+
+    single(predicate: (it: T) => boolean): T
+
+    singleOrNull(): T | null
+
+    singleOrNull(predicate: (it: T) => boolean): T | null
+  }
+}
+
 export function registerArrayIteratorFunctions() {
   if (Array.prototype.forEachIndexed === undefined) {
     Array.prototype.forEachIndexed = function<T>(block: (index: number, it: T) => void) {
@@ -323,5 +383,34 @@ function registerArraySingleExtensions() {
 }
 
 function registerArrayDistinctFunctions() {
+  if (Array.prototype.distinct === undefined) {
+    Array.prototype.distinct = function<T>(this: T[]): Array<T> {
+      const result: T[] = []
+      const count = new Map<T, number>()
+      for (let i = 0; i < this.length; i++) {
+        const c = count.get(this[i]) || 0
+        if (c == 0) {
+          result.push(this[i])
+        }
+        count.set(this[i], c + 1)
+      }
+      return result
+    }
+  }
 
+  if (Array.prototype.distinctBy === undefined) {
+    Array.prototype.distinctBy = function<T, S>(this: T[], selector: (it: T) => S): Array<T> {
+      const result: T[] = []
+      const count = new Map<S, number>()
+      for (let i = 0; i < this.length; i++) {
+        const s = selector(this[i])
+        const c = count.get(s) || 0
+        if (c == 0) {
+          result.push(this[i])
+        }
+        count.set(s, c + 1)
+      }
+      return result
+    }
+  }
 }

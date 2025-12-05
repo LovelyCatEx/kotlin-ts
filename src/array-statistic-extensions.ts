@@ -1,5 +1,17 @@
 import {UnsupportedOperationException} from "./exception/UnsupportedOperationException";
 
+declare global {
+  interface Array<T> {
+    isEmpty(): boolean
+
+    isNotEmpty(): boolean
+
+    count(): number
+
+    count(predicate: (it: T) => boolean): number
+  }
+}
+
 export function registerArraySearchAndStatisticFunctions() {
   if (Array.prototype.isEmpty === undefined) {
     Array.prototype.isEmpty = function (): boolean {
