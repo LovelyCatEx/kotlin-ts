@@ -8,7 +8,7 @@ declare global {
 
     flatMapNotNull<R>(this: T[], transform: (it: T) => R[] | undefined | null): R[]
 
-    flatten(this: T[]): Array<T>
+    flatten(this: T[]): T
 
     associateBy<K>(transform: (it: T) => K): Map<K, T>
 
@@ -64,7 +64,7 @@ export function registerArrayTransformFunctions() {
   }
 
   if (Array.prototype.flatten === undefined) {
-    Array.prototype.flatten = function<T>(this: T[][]): Array<T> {
+    Array.prototype.flatten = function<T>(this: T[][]): T[] {
       return this.flatMap(it => it)
     }
   }
