@@ -1,5 +1,5 @@
 import {beforeEach} from "mocha";
-import {registerKotlinArrayExtensions} from "../array-extensions";
+import {registerKotlinArrayExtensions} from "../src/array-extensions";
 import {expect} from "chai";
 
 const testNumberArray = [1, 2, 3, 4, 5]

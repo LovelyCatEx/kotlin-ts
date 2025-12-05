@@ -1,8 +1,8 @@
 import {beforeEach} from "mocha";
-import {registerKotlinArrayExtensions} from "../array-extensions";
+import {registerKotlinArrayExtensions} from "../src/array-extensions";
 import {expect} from "chai";
-import {NullPointerException} from "../exception/NullPointerException";
-import {IllegalArgumentException} from "../exception/IllegalArgumentException";
+import {NullPointerException} from "../src/exception/NullPointerException";
+import {IllegalArgumentException} from "../src/exception/IllegalArgumentException";
 
 const testEmptyNumberArray: number[] = []
 const testNumberArray = [1, 2, 3, 4, 5]

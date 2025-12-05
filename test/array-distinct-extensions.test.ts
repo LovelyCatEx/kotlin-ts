@@ -1,6 +1,6 @@
 import {beforeEach} from "mocha";
 import {expect} from "chai";
-import {registerAllKotlinModules} from "../index";
+import {registerAllKotlinModules} from "../src";
 
 const testEmptyNumberArray: number[] = []
 const testNumberArray = [1, 2, 3, 4, 5, 5, 2, 1, 6, 8, 9, 9, 7]

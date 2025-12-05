@@ -1,6 +1,6 @@
 {
   "name": "kotlin-ts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A library implements extensions in kotlin",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,10 +17,21 @@
   "keywords": [
     "kotlin",
     "extensions",
-    "typescript"
+    "typescript",
+    "collections",
+    "functional",
+    "utility"
   ],
   "author": "LovelyCat",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LovelyCatEx/kotlin-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LovelyCatEx/kotlin-ts/issues"
+  },
+  "homepage": "https://github.com/LovelyCatEx/kotlin-ts#readme",
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
@@ -31,6 +42,6 @@
   },
   "private": false,
   "publishConfig": {
-    "registry": "file:./local-registry"
+    "access": "public"
   }
 }

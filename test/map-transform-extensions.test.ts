@@ -1,6 +1,6 @@
 import {beforeEach} from "mocha";
 import {expect} from "chai";
-import {registerKotlinMapExtensions} from "../map-extensions";
+import {registerKotlinMapExtensions} from "../src/map-extensions";
 
 const testNumberMap = new Map<number, number>([
   [1, 1],
