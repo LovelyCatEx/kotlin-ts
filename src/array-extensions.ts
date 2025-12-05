@@ -7,3 +7,7 @@ export function registerKotlinArrayExtensions() {
     registerArrayTransformFunctions()
     registerArraySearchAndStatisticFunctions()
 }
+
+export * from './array-iterator-extensions'
+export * from './array-statistic-extensions'
+export * from './array-transform-extensions'

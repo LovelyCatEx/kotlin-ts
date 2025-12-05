@@ -8,4 +8,7 @@ export function registerAllKotlinModules() {
   registerKotlinMapExtensions()
 }
 
+export * from './kotlin-extensions'
+export * from './array-extensions'
+export * from './map-extensions'
 export default { registerAllKotlinModules }
