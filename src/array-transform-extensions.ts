@@ -4,6 +4,12 @@ declare global {
 
     mapNotNull<R>(transform: (it: T) => R | undefined | null): Array<R>
 
+    flatMapIndexed<R>(this: T[], transform: (index: number, it: T) => R[]): R[]
+
+    flatMapNotNull<R>(this: T[], transform: (it: T) => R[] | undefined | null): R[]
+
+    flatten(this: T[]): Array<T>
+
     associateBy<K>(transform: (it: T) => K): Map<K, T>
 
     associateWith<V>(transform: (it: T) => V): Map<T, V>
@@ -31,6 +37,35 @@ export function registerArrayTransformFunctions() {
         }
       }
       return result
+    }
+  }
+
+  if (Array.prototype.flatMapIndexed === undefined) {
+    Array.prototype.flatMapIndexed = function<T, R>(this: T[][], transform: (index: number, it: T[]) => R[]): R[] {
+      const result: R[] = []
+      for (let i = 0; i < this.length; i++) {
+        result.push(...transform(i, this[i]))
+      }
+      return result
+    }
+  }
+
+  if (Array.prototype.flatMapNotNull === undefined) {
+    Array.prototype.flatMapNotNull = function<T, R>(this: T[][], transform: (it: T[]) => R[] | undefined | null): R[] {
+      const result: R[] = []
+      for (let i = 0; i < this.length; i++) {
+        const t = transform(this[i])
+        if (t != null) {
+          result.push(...t)
+        }
+      }
+      return result
+    }
+  }
+
+  if (Array.prototype.flatten === undefined) {
+    Array.prototype.flatten = function<T>(this: T[][]): Array<T> {
+      return this.flatMap(it => it)
     }
   }
 
