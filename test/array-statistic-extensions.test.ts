@@ -1,5 +1,5 @@
 import {beforeEach} from "mocha";
-import {registerKotlinArrayExtensions} from "../src/array-extensions";
+import {registerKotlinArrayExtensions} from "../src";
 import {expect} from "chai";
 
 const testEmptyNumberArray: number[] = []

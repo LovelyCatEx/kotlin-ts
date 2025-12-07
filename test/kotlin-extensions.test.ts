@@ -1,6 +1,6 @@
 // src/test/kotlin-extensions.test.ts
 import { beforeEach } from "mocha";
-import {registerKotlinExtensions, withScope} from "../src/kotlin-extensions";
+import {registerKotlinExtensions, withScope} from "../src";
 import {expect} from "chai";
 
 

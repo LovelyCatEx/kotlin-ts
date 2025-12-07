@@ -11,4 +11,5 @@ export function registerAllKotlinModules() {
 export * from './kotlin-extensions'
 export * from './array-extensions'
 export * from './map-extensions'
+export * from './promise-extensions'
 export default { registerAllKotlinModules }
