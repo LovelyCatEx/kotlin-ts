@@ -13,6 +13,8 @@ declare global {
     associateBy<K>(transform: (it: T) => K): Map<K, T>
 
     associateWith<V>(transform: (it: T) => V): Map<T, V>
+
+    groupBy<K>(transform: (it: T) => K): Map<K, T[]>
   }
 }
 
@@ -85,6 +87,22 @@ export function registerArrayTransformFunctions() {
       for (let i = 0; i < this.length; i++) {
         result.set(this[i], transform(this[i]))
       }
+      return result;
+    }
+  }
+
+  if (Array.prototype.groupBy === undefined) {
+    Array.prototype.groupBy = function<T, K>(this: T[], transform: (it: T) => K): Map<K, T[]> {
+      const result = new Map<K, T[]>();
+
+      for (let i = 0; i < this.length; i++) {
+        const element = this[i];
+        const key = transform(element);
+        const list = result.get(key) ?? [] as T[];
+        list.push(element);
+        result.set(key, list);
+      }
+
       return result;
     }
   }

@@ -72,4 +72,30 @@ describe('Array Transform Extensions', () => {
     expect(result.get(2)).to.eq('#2')
     expect(result.get(3)).to.eq('#3')
   });
+
+  it('should groupBy()', () => {
+    const array = [
+      { key: 1, content: 'A1' },
+      { key: 1, content: 'A2' },
+      { key: 1, content: 'A3' },
+      { key: 2, content: 'B1' },
+      { key: 2, content: 'B2' },
+      { key: 3, content: 'C1' }
+    ];
+
+    const result = array.groupBy(it => `#${it.key}`);
+
+    const g1 = result.get('#1')!;
+    const g2 = result.get('#2')!;
+    const g3 = result.get('#3')!;
+
+    expect(g1.length).to.eq(3);
+    expect(g1[1].content).to.eq('A2');
+
+    expect(g2.length).to.eq(2);
+    expect(g2[1].content).to.eq('B2');
+
+    expect(g3.length).to.eq(1);
+    expect(g3[0].content).to.eq('C1');
+  });
 });
