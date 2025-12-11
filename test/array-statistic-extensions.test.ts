@@ -29,4 +29,13 @@ describe('Array Statistic Extensions', () => {
     expect(testNumberArray.count(it => it % 2 == 0)).to.eq(2)
     expect(testEmptyNumberArray.count(it => it == 100)).to.eq(0)
   });
+
+  it('should sum()', () => {
+    expect(testNumberArray.sum()).to.eq(15)
+  });
+
+  it('should sumOf(predicate)', () => {
+    expect(testStringArray.sumOf(it => it.length)).to.eq(15)
+
+  });
 });

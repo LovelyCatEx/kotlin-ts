@@ -9,6 +9,10 @@ declare global {
     count(): number
 
     count(predicate: (it: T) => boolean): number
+
+    sum(): number
+
+    sumOf(predicate: (it: T) => number): number
   }
 }
 
@@ -42,6 +46,38 @@ export function registerArraySearchAndStatisticFunctions() {
       }
 
       throw new UnsupportedOperationException("incorrect usage of Array.count()");
+    }
+  }
+
+  if (Array.prototype.sum === undefined) {
+    Array.prototype.sum = function<T>(this: T[]): number {
+      if (this.length > 0 && typeof this[0] != 'number') {
+        throw new UnsupportedOperationException(`incorrect usage of Array.sum(), the element type must be a number instead of ${typeof this[0]}.`);
+      }
+
+      if (this.length == 0) {
+        return 0;
+      }
+
+      let count = 0
+      for (let i = 0; i < this.length; i++) {
+        count += this[i] as number
+      }
+      return count
+    }
+  }
+
+  if (Array.prototype.sumOf === undefined) {
+    Array.prototype.sumOf = function<T>(this: T[], predicate: (it: T) => number): number {
+      if (this.length == 0) {
+        return 0;
+      }
+
+      let count = 0
+      for (let i = 0; i < this.length; i++) {
+        count += predicate(this[i])
+      }
+      return count
     }
   }
 }
